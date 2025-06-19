@@ -245,3 +245,67 @@ async function MergeSort() {
 
 
 
+
+
+// 5
+// QUICK SORT
+// Partition(): Places the (r)th bar at the correct position 
+async function Partition(l, r, d) {
+	let i = l - 1;
+	let j = l;
+	let id = bars[r].split('id="')[1].split('"')[0];
+	document.getElementById(id).style.backgroundColor = selected;
+	for (j = l; j < r; j++) {
+		let a = parseInt(bars[j].split(/[:%]/)[1]);
+		let b = parseInt(bars[r].split(/[:%]/)[1]);
+		if (a < b) {
+			i++;
+			let curr_id = bars[i].split('id="')[1].split('"')[0];
+			let nxt_ele = bars[j].split('id="')[1].split('"')[0];
+			document.getElementById(curr_id).style.backgroundColor = chng;
+			document.getElementById(nxt_ele).style.backgroundColor = chng;
+
+			let temp = bars[i];
+			bars[i] = bars[j];
+			bars[j] = temp;
+
+			await Sleep(d / 3.0);
+			container.innerHTML = bars.join('');
+			document.getElementById(curr_id).style.backgroundColor = chng;
+			document.getElementById(nxt_ele).style.backgroundColor = chng;
+			document.getElementById(id).style.backgroundColor = selected;
+			let sound = MapRange(document.getElementById(curr_id).style.height.split('%')[0], 2, 100, 500, 1000);
+			beep(100, sound, d)
+			await Sleep(d / 3.0)
+			document.getElementById(curr_id).style.backgroundColor = def;
+			document.getElementById(nxt_ele).style.backgroundColor = def;
+		}
+	}
+
+	let temp = bars[i + 1];
+	bars[i + 1] = bars[r];
+	bars[r] = temp;
+
+	container.innerHTML = bars.join(' ');
+	document.getElementById(id).style.backgroundColor = selected;
+	await Sleep(d / 3.0);
+	document.getElementById(id).style.backgroundColor = def;
+	return i + 1;
+}
+
+
+async function quickSort(l, r, d) {
+	if (l < r) {
+		let p = await Partition(l, r, d);
+		await quickSort(l, p - 1, d);
+		await quickSort(p + 1, r, d);
+	}
+}
+
+
+async function QuickSort() {
+	let delay = Disable_The_Input();
+	await quickSort(0, bars.length - 1, delay);
+	Finished_Sorting();
+}
+
