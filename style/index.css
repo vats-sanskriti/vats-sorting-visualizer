@@ -44,8 +44,8 @@ h1{
 	font-size: 3vw;
 	font-family: Pacifico, cursive;
 	font-weight: lighter;
-	width: 25%
-	text-align: center;
+	width: 25% ;
+	text-align: center
 }
 .range{
 	justify-content: space-evenly;
