@@ -1,5 +1,5 @@
 let bars = [];
-const def = "#fd0081", chng = "#431f91", finished = "#8ef511", selected = "yellow";
+const def = " #0B3C3C", chng = "#431f91", finished = "#8ef511", selected ="yellow";
 
 window.onload = setup();
 async function setup() {
@@ -12,6 +12,7 @@ async function setup() {
 		generateBars(parseInt(b.value));
 	}
 }
+
 
 
 function reset() {
